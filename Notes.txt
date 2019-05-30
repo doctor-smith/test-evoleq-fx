@@ -1,0 +1,5 @@
+Setup new project using this template
+1. Copy the files to the desired project folder 
+2. Go to the proiject forder and run ./gradlew
+3. Adapt configuration: Look at config in buildSrc, adapt project name in gradle-settings
+4. Open idea and import project
