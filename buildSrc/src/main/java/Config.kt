@@ -17,11 +17,11 @@ object Config {
     object Versions {
         val kotlin = "1.3.30"
         val coroutines = "1.2.0"
-        val junit = "4.12"
+
 		val evoleq = "1.0.3"
 		val evoleqfx = "1.1.0"
         val testEvoleq = "1.0.0"
-
+        val junit = "4.12"
         val testfxcore = "4.0.15-alpha"
         val testfxjunit = "4.0.15-alpha"
     }
