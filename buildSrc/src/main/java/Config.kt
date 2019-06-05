@@ -2,7 +2,7 @@ object Config {
 
     object Project {
         val group = "org.drx"
-        val version = "1.0.0"
+        val version = "1.0.1"
         val artifactId = "test-evoleq-fx"
 
 		val description = "Test framework for evoleq-fx"
@@ -18,9 +18,9 @@ object Config {
         val kotlin = "1.3.30"
         val coroutines = "1.2.0"
 
-		val evoleq = "1.0.3"
+		val evoleq = "1.1.0"
 		val evoleqfx = "1.1.0"
-        val testEvoleq = "1.0.0"
+        val testEvoleq = "1.0.1"
         val junit = "4.12"
         val testfxcore = "4.0.15-alpha"
         val testfxjunit = "4.0.15-alpha"
