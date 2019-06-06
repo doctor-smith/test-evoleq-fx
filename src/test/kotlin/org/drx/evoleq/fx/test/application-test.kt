@@ -16,14 +16,13 @@
 package org.drx.evoleq.fx.test
 
 import javafx.scene.Group
-import javafx.stage.Stage
-import javafx.stage.Window
 import kotlinx.coroutines.delay
 import org.drx.evoleq.evolving.Immediate
-import org.drx.evoleq.evolving.Parallel
 import org.drx.evoleq.fx.dsl.*
 import org.drx.evoleq.fx.test.dsl.fxRunTest
-import org.drx.evoleq.test.runTest
+import org.drx.evoleq.fx.test.dsl.launchTestStage
+import org.drx.evoleq.fx.test.dsl.showInTestStage
+import org.drx.evoleq.fx.test.dsl.showTestStage
 import org.junit.Test
 
 class ApplicationTest {
@@ -45,7 +44,8 @@ class ApplicationTest {
             }
         }
         val stub = showInTestStage(groupComponent).get()
-        assert(stub.stubs.size == 1)
+        println(stub.stubs.size)
+        assert(stub.stubs.size == 2)
         //delay(2_000)
         assert(shown)
 
@@ -103,4 +103,6 @@ class ApplicationTest {
         assert(stageComponent.evolve(false ).get())
         delay(1_000)
     }
+
+
 }

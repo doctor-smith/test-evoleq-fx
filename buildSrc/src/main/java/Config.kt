@@ -19,7 +19,7 @@ object Config {
         val coroutines = "1.2.0"
 
 		val evoleq = "1.1.0"
-		val evoleqfx = "1.1.0"
+		val evoleqfx = "1.2.0"
         val testEvoleq = "1.0.1"
         val junit = "4.12"
         val testfxcore = "4.0.15-alpha"
