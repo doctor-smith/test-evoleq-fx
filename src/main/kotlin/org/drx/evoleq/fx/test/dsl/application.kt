@@ -19,22 +19,23 @@ import javafx.scene.Node
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.stage.Stage
+import kotlinx.coroutines.CoroutineScope
+import org.drx.evoleq.dsl.parallel
 import org.drx.evoleq.evolving.Parallel
 import org.drx.evoleq.fx.application.AppManager
 import org.drx.evoleq.fx.application.deprecated.SimpleAppManager
 import org.drx.evoleq.fx.component.FxComponent
 import org.drx.evoleq.fx.dsl.*
-import org.drx.evoleq.fx.evolving.ParallelFx
 import org.drx.evoleq.stub.Stub
 
 /**
  * Show the stageComponent and return it as a stub
  */
-fun <D> showTestStage(stageComponent: FxComponent<Stage, D>): Parallel<Stub<D>> = Parallel {
+fun <D> CoroutineScope.showTestStage(stageComponent: FxComponent<Stage, D>): Parallel<Stub<D>> = parallel {
 
     class TestApp<D> : SimpleAppManager<D>() {
         init{
-            ParallelFx<Unit>{showStage(stageComponent.show())}
+            scope.parallelFx<Unit>{showStage(stageComponent.show())}
         }
         override fun configure(): Stub<D> = stageComponent as Stub<D>
     }
@@ -42,11 +43,11 @@ fun <D> showTestStage(stageComponent: FxComponent<Stage, D>): Parallel<Stub<D>> 
     stub
 }
 
-fun <D> launchTestStage(stageComponent: FxComponent<Stage, D>): Parallel<Stub<D>> = Parallel{
+fun <D> CoroutineScope.launchTestStage(stageComponent: FxComponent<Stage, D>): Parallel<Stub<D>> = parallel{
 
     class TestApp<D> : SimpleAppManager<D>() {
         init{
-            ParallelFx<Unit>{showStage(stageComponent.show())}
+            scope.parallelFx{showStage(stageComponent.show())}
         }
         override fun configure(): Stub<D> = stageComponent as Stub<D>
     }
@@ -59,8 +60,8 @@ fun <D> launchTestStage(stageComponent: FxComponent<Stage, D>): Parallel<Stub<D>
     stub
 }
 
-fun <P : Parent,D> showInTestStage(parentComponent: FxComponent<P, D>): Parallel<Stub<D>> = Parallel{
-    val stageComponent = fxStage<D> {
+fun <P : Parent,D> CoroutineScope.showInTestStage(parentComponent: FxComponent<P, D>): Parallel<Stub<D>> =
+    launchTestStage(fxStage<D> {
         id<StageId>()
         view{configure {  }}
         scene(fxScene{
@@ -70,11 +71,9 @@ fun <P : Parent,D> showInTestStage(parentComponent: FxComponent<P, D>): Parallel
         stub(org.drx.evoleq.dsl.stub{
             evolve{data -> parentComponent.evolve(data)}
         })
-    }
-    launchTestStage(stageComponent).get()
-}
+    })
 
-fun <N : Node, D> showNodeInTestStage(nodeComponent: FxComponent<N, D>): Parallel<Stub<D>> = Parallel{
+fun <N : Node, D> CoroutineScope.showNodeInTestStage(nodeComponent: FxComponent<N, D>): Parallel<Stub<D>> = parallel{
     val group = fxGroup<D>{
         tunnel()
         view{configure{}}

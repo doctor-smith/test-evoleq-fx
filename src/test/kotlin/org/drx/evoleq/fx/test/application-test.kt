@@ -16,6 +16,8 @@
 package org.drx.evoleq.fx.test
 
 import javafx.scene.Group
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import org.drx.evoleq.evolving.Immediate
 import org.drx.evoleq.fx.dsl.*
@@ -29,7 +31,7 @@ class ApplicationTest {
 
     @Test fun showInTestStageTest() = fxRunTest{
         var shown = false
-        val groupComponent = fxGroup<Boolean>{
+        fun groupComponent() = fxGroup<Boolean>{
             id<Group>()
             stub(org.drx.evoleq.dsl.stub {  })
             view{configure {  }}
@@ -43,7 +45,7 @@ class ApplicationTest {
                 shown = true
             }
         }
-        val stub = showInTestStage(groupComponent).get()
+        val stub = GlobalScope.showInTestStage(groupComponent()).get()
         println(stub.stubs.size)
         assert(stub.stubs.size == 2)
         //delay(2_000)
